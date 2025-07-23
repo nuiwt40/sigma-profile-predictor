@@ -11,7 +11,7 @@ from PIL import Image
 import io
 import xgboost as xgb
 
-# --- NEW: Optional import for RDKit Drawing ---
+# --- RDKit Drawing ---
 # This prevents the app from crashing if the drawing module fails to import
 try:
     from rdkit.Chem import Draw
@@ -20,7 +20,7 @@ except ImportError:
     RDKIT_DRAW_AVAILABLE = False
 # ----------------------------------------------------
 
-# --- Optional import for 3D visualization ---
+# --- 3D visualization ---
 try:
     import py3Dmol
     from st_py3dmol import st_py3dmol
@@ -29,7 +29,7 @@ except ImportError:
     PY3DMOL_AVAILABLE = False
 # ----------------------------------------------------
 
-# --- Optional import for Ketcher drawing ---
+# --- Ketcher drawing ---
 try:
     from streamlit_ketcher import st_ketcher
     KETCHER_AVAILABLE = True
@@ -109,8 +109,8 @@ def format_profile_for_download(sigma_bins, profile_values):
 
 # --- Streamlit App UI ---
 
-st.set_page_config(page_title="XGBoost Property Predictor", layout="wide")
-st.title("🧪 XGBoost Property Predictor")
+st.set_page_config(page_title="Sigma Progile Predictor", layout="wide")
+st.title("🧪 Sigma Profile Predictor")
 st.write("Draw a molecule or enter a SMILES string, provide a temperature, and predict its properties.")
 
 model = load_model()
