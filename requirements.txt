@@ -6,5 +6,4 @@ matplotlib
 xgboost
 scikit-learn
 py3Dmol
-streamlit-py3dmol
 streamlit-ketcher
