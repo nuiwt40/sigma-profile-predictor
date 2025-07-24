@@ -39,7 +39,7 @@ SIGMA_BINS = np.arange(-0.025, 0.0251, 0.001)
 
 # --- UPDATED: Use the new multi-output model filename ---
 script_dir = os.path.dirname(os.path.abspath(__file__))
-MODEL_FILENAME = os.path.join(script_dir, 'best_multi_output_model.pkl')
+MODEL_FILENAME = os.path.join(script_dir, 'best_xgboost_multi_output_model.pkl')
 # ---------------------------------------------------------
 
 # --- SETUP: Suppress RDKit warnings ---
@@ -114,7 +114,7 @@ def format_profile_for_download(sigma_bins, profile_values):
 # --- Streamlit App UI ---
 
 st.set_page_config(page_title="Property Predictor", layout="wide")
-st.title("🧪 Area, Volume & Sigma Profile Predictor")
+st.title("🧪 Sigma Profile Predictor")
 st.write("Draw a molecule or enter a SMILES string to predict its properties using the trained multi-output model.")
 
 model = load_model()
@@ -124,7 +124,7 @@ col1, col2 = st.columns([1, 1.5])
 with col1:
     st.subheader("Input Molecule")
 
-    # --- NEW: Integrated Ketcher Drawing Widget ---
+    # --- Integrated Ketcher Drawing Widget ---
     # Use session state to sync the drawing and text input
     if 'smiles' not in st.session_state:
         st.session_state.smiles = "CCO"  # Initial default
@@ -152,7 +152,7 @@ with col1:
                 # The model now only needs the fingerprint
                 combined_prediction = model.predict(fingerprint.reshape(1, -1))[0]
 
-                # --- UPDATED: Unpack Area, Volume, and Profile ---
+                # --- Unpack Area, Volume, and Profile ---
                 predicted_area = combined_prediction[0]
                 predicted_volume = combined_prediction[1]
                 predicted_profile = combined_prediction[2:]
@@ -231,5 +231,3 @@ with col2:
         )
     else:
         st.info("Draw or enter a molecule and click 'Predict' to see the results here.")
-
-#streamlit run "20250723_SMILES to sigma profile/Bell database/SMILES to sigma profile_Bell database.py"
